@@ -102,7 +102,7 @@ app.post("/api/rsvps", async (req, res) => {
       if (isPostgres) {
         await sql`
           UPDATE rsvps 
-          SET attending = ${attending}, dish = ${dish || null} 
+          SET attending = ${!!attending}, dish = ${dish || null} 
           WHERE id = ${existing.id}
         `;
       } else {
@@ -117,7 +117,7 @@ app.post("/api/rsvps", async (req, res) => {
     if (isPostgres) {
       await sql`
         INSERT INTO rsvps (name, attending, dish) 
-        VALUES (${trimmedName}, ${attending}, ${dish || null})
+        VALUES (${trimmedName}, ${!!attending}, ${dish || null})
       `;
     } else {
       const insert = db.prepare(

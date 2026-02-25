@@ -124,8 +124,8 @@ export default function App() {
 
   const stats = {
     total: rsvps.length,
-    attending: rsvps.filter(r => r.attending === 1).length,
-    notAttending: rsvps.filter(r => r.attending === 0).length,
+    attending: rsvps.filter(r => Boolean(r.attending)).length,
+    notAttending: rsvps.filter(r => !Boolean(r.attending)).length,
   };
 
   return (
@@ -356,7 +356,7 @@ export default function App() {
                       <tr key={rsvp.id} className="hover:bg-slate-50 transition-colors">
                         <td className="px-6 py-4 font-medium text-slate-900">{rsvp.name}</td>
                         <td className="px-6 py-4">
-                          {rsvp.attending === 1 ? (
+                          {Boolean(rsvp.attending) ? (
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                               <CheckCircle2 className="w-3 h-3" />
                               Attending
